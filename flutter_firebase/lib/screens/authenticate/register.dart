@@ -56,10 +56,10 @@ class _RegisterState extends State<Register> {
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     if (_formKey.currentState!.validate()) {
-                      dynamic result =
-                          _auth.registerWithEmailAndPassword(email, password);
+                      dynamic result = await _auth.registerWithEmailAndPassword(
+                          email, password);
                       if (result == null) {
                         setState(() {
                           error = "Please supply a valid email";
@@ -70,7 +70,12 @@ class _RegisterState extends State<Register> {
                   child: const Text(
                     'Register',
                     style: TextStyle(color: Colors.white),
-                  ))
+                  )),
+              const SizedBox(height: 12.0),
+              Text(
+                error,
+                style: const TextStyle(color: Colors.red, fontSize: 14.0),
+              ),
             ],
           ),
         ),

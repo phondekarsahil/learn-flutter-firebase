@@ -11,6 +11,8 @@ class SignIn extends StatefulWidget {
 
 class _SignInState extends State<SignIn> {
   final AuthService _auth = AuthService();
+  final _formKey = GlobalKey<FormState>();
+  String error = '';
 
   String email = '';
   String password = '';
@@ -33,16 +35,20 @@ class _SignInState extends State<SignIn> {
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 50.0, vertical: 20.0),
         child: Form(
+          key: _formKey,
           child: Column(
             children: [
               const SizedBox(height: 20.0),
               TextFormField(
+                validator: (val) => val!.isEmpty ? 'Enter an email' : null,
                 onChanged: (val) {
                   setState(() => email = val);
                 },
               ),
               const SizedBox(height: 20.0),
-              TextField(
+              TextFormField(
+                validator: (val) =>
+                    val!.length < 6 ? 'Enter a password 6+ chars long' : null,
                 obscureText: true,
                 onChanged: (val) {
                   setState(() => password = val);
@@ -50,14 +56,24 @@ class _SignInState extends State<SignIn> {
               ),
               const SizedBox(height: 20.0),
               ElevatedButton(
-                  onPressed: () {
-                    print(email);
-                    print(password);
+                  onPressed: () async {
+                    dynamic result =
+                        await _auth.signInWithEmailAndPassword(email, password);
+                    if (result == null) {
+                      setState(() {
+                        error = "Could not sign in with those credentials";
+                      });
+                    }
                   },
                   child: const Text(
                     'Sign In',
                     style: TextStyle(color: Colors.white),
-                  ))
+                  )),
+              const SizedBox(height: 12.0),
+              Text(
+                error,
+                style: const TextStyle(color: Colors.red, fontSize: 14.0),
+              ),
             ],
           ),
         ),
