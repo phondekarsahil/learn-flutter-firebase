@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/models/brew.dart';
 import 'package:flutter_firebase/screens/home/brew_list.dart';
+import 'package:flutter_firebase/screens/home/settings_form.dart';
 import 'package:flutter_firebase/services/auth.dart';
 import 'package:flutter_firebase/services/database.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +20,7 @@ class Home extends StatelessWidget {
             return Container(
               padding:
                   const EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
-              child: const Text("Botton Sheet"),
+              child: const SettingsForm(),
             );
           });
     }
