@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_firebase/models/brew.dart';
 import 'package:flutter_firebase/screens/home/brew_tile.dart';
