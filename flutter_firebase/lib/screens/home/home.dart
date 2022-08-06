@@ -12,6 +12,18 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    void _showSettingsPanel() {
+      showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            return Container(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 20.0, horizontal: 60.0),
+              child: const Text("Botton Sheet"),
+            );
+          });
+    }
+
     return StreamProvider<List<Brew>>.value(
       value: DatabaseService().brews,
       initialData: const [],
@@ -22,6 +34,10 @@ class Home extends StatelessWidget {
             backgroundColor: Colors.brown[400],
             elevation: 0.0,
             actions: [
+              TextButton.icon(
+                  onPressed: () => _showSettingsPanel(),
+                  icon: const Icon(Icons.settings),
+                  label: const Text("Settings")),
               TextButton.icon(
                   onPressed: () async {
                     _auth.signOut();
